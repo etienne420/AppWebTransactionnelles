@@ -23,6 +23,9 @@ $descriptionProjet = 'Une bibliotheque de jeux où des utilisateurs peuvent gér
 
     <nav>
         <a href="recits.php">recits</a>
+        <a href="credits.php">credits</a>
+        <a href="page-bidon.php">autres</a>
+
     </nav>
 </body>
 </html>
