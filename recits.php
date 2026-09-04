@@ -16,9 +16,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>Le joueur peut sélectionner un jeu disponible.</li>
-        <li>Le jeu est ajouté à sa librairie.</li>
-        <li>Le même jeu ne peut pas être ajouté plusieurs fois.</li>
+        <li>Un message de confirmation apparaît lorsque le jeu est ajouté.</li>
+        <li>Le jeu apparaît dans la librairie du joueur.</li>
+        <li>L'ajout du jeu est enregistré correctement dans la base de données.</li>
     </ul>
 
 
@@ -29,9 +29,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>La liste des jeux disponibles est affichée.</li>
-        <li>Chaque jeu affiche au minimum son titre et son genre.</li>
-        <li>Le joueur peut sélectionner un jeu pour voir ses informations.</li>
+        <li>La liste des jeux enregistrés dans la base de données apparaît à l'écran.</li>
+        <li>Les informations du jeu sélectionné apparaissent correctement.</li>
+        <li>Un jeu supprimé de la base de données n'apparaît plus dans la liste.</li>
     </ul>
 
 
@@ -42,9 +42,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>Le visiteur doit fournir un nom et une adresse courriel.</li>
-        <li>Une adresse courriel déjà utilisée ne peut pas être enregistrée une deuxième fois.</li>
-        <li>Le compte est créé lorsque toutes les informations obligatoires sont valides.</li>
+        <li>Un message de confirmation apparaît lorsque le compte est créé avec succès.</li>
+        <li>Les informations du nouveau compte sont enregistrées correctement dans la base de données.</li>
+        <li>Le compte n'est pas créé si l'adresse courriel est déjà utilisée.</li>
     </ul>
 
 
@@ -55,9 +55,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>Le joueur doit entrer son adresse courriel et son mot de passe.</li>
-        <li>Les informations doivent être vérifiées avant d'autoriser la connexion.</li>
-        <li>Un message d'erreur est affiché si les informations sont incorrectes.</li>
+        <li>Un message d'erreur apparaît lorsque les informations de connexion sont incorrectes.</li>
+        <li>La connexion réussit lorsque l'adresse courriel et le mot de passe sont valides.</li>
+        <li>Après une connexion réussie, la librairie du joueur apparaît.</li>
     </ul>
 
 
@@ -68,9 +68,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>Le joueur peut donner une note à un jeu.</li>
-        <li>La note doit respecter l'échelle prévue par l'application.</li>
-        <li>L'évaluation est associée au joueur et au jeu concerné.</li>
+        <li>Un message de confirmation apparaît lorsque l'évaluation est enregistrée.</li>
+        <li>L'évaluation apparaît sur la page du jeu.</li>
+        <li>L'évaluation est enregistrée correctement dans la base de données.</li>
     </ul>
 
 
@@ -81,9 +81,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>Le joueur peut emprunter un jeu disponible.</li>
-        <li>La date d'emprunt est enregistrée.</li>
-        <li>Un jeu déjà emprunté ne peut pas être emprunté par un autre joueur.</li>
+        <li>Un message de confirmation apparaît lorsque l'emprunt est effectué.</li>
+        <li>L'emprunt est enregistré correctement dans la base de données.</li>
+        <li>Le jeu apparaît comme indisponible pour les autres joueurs.</li>
     </ul>
 
 
@@ -94,9 +94,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>Le joueur peut sélectionner un jeu qu'il a emprunté.</li>
-        <li>La date de retour est enregistrée.</li>
-        <li>Le jeu redevient disponible après son retour.</li>
+        <li>Un message de confirmation apparaît lorsque le jeu est retourné.</li>
+        <li>La date de retour est enregistrée correctement dans la base de données.</li>
+        <li>Le jeu apparaît comme disponible après son retour.</li>
     </ul>
 
 
@@ -107,9 +107,9 @@
 
     <h3>Critères d'acceptation</h3>
     <ul>
-        <li>L'administrateur peut ajouter un nouveau jeu.</li>
-        <li>L'administrateur peut modifier les informations d'un jeu.</li>
-        <li>L'administrateur peut supprimer un jeu.</li>
+        <li>Un message de confirmation apparaît après l'ajout, la modification ou la suppression d'un jeu.</li>
+        <li>Les modifications effectuées apparaissent correctement dans la liste des jeux.</li>
+        <li>Les informations sont ajoutées, modifiées ou supprimées correctement dans la base de données.</li>
     </ul>
 
     <p>
