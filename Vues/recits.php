@@ -113,7 +113,7 @@
     </ul>
 
     <p>
-        <a href="index.php">Retour à l'accueil</a>
+        <a href="../index.php">Retour à l'accueil</a>
     </p>
 
 </body>
