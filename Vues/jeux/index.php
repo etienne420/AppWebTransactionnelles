@@ -20,6 +20,12 @@
         </p>
 
         <hr>
+
+        
     </div>
 
 <?php endforeach; ?>
+
+    <p>
+        <a href="index.php">Retour à l'accueil</a>
+    </p>
