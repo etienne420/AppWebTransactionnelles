@@ -1,0 +1,5 @@
+* { box-sizing: border-box; }
+body { max-width: 900px; margin: 0 auto; padding: 2rem; font-family: Arial, sans-serif; line-height: 1.6; color: #263238; background: #f4f6f8; }
+h1 { color: #1f4e5f; }
+nav { display: flex; gap: 1rem; margin-top: 1.5rem; }
+a { color: #176b87; font-weight: bold; }

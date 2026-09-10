@@ -10,6 +10,7 @@ $descriptionProjet = 'Une bibliotheque de jeux où des utilisateurs peuvent gér
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($nomProjet) ?></title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
