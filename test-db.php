@@ -1,0 +1,28 @@
+<?php
+
+require_once __DIR__ . '/config/bd.php';
+
+$requete = $pdo->query("SELECT * FROM jeu");
+$jeux = $requete->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<h1>Liste des jeux</h1>
+
+<?php foreach ($jeux as $jeu): ?>
+
+    <div>
+        <p>
+            ID : <?= htmlspecialchars($jeu['id_jeu'], ENT_QUOTES, 'UTF-8') ?>
+        </p>
+
+        <p>
+            Nom du jeu : <?= htmlspecialchars($jeu['titre'], ENT_QUOTES, 'UTF-8') ?>
+        </p>
+
+        <p>
+            Date de sortie : <?= htmlspecialchars($jeu['annee_sortie'], ENT_QUOTES, 'UTF-8') ?>
+        </p>
+        <hr>
+    </div>
+
+<?php endforeach; ?>

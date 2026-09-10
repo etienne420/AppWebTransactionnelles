@@ -5,19 +5,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema projet_db
+-- Schema projet_db
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema projet_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `projet_db` DEFAULT CHARACTER SET utf8 ;
+USE `projet_db` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Librairie`
+-- Table `projet_db`.`Librairie`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Librairie` (
+CREATE TABLE IF NOT EXISTS `projet_db`.`Librairie` (
   `id_librairie` INT NOT NULL,
   `id_utilisateur` INT NULL,
   `id_jeu` INT NULL,
@@ -27,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Utilisateur`
+-- Table `projet_db`.`Utilisateur`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Utilisateur` (
+CREATE TABLE IF NOT EXISTS `projet_db`.`Utilisateur` (
   `idUtilisateur` INT NOT NULL,
   `nom` VARCHAR(45) NULL,
   `courriel` VARCHAR(45) NULL,
@@ -39,16 +40,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Utilisateur` (
   INDEX `fk_Utilisateur_Librairie_idx` (`Librairie_id_librairie` ASC) VISIBLE,
   CONSTRAINT `fk_Utilisateur_Librairie`
     FOREIGN KEY (`Librairie_id_librairie`)
-    REFERENCES `mydb`.`Librairie` (`id_librairie`)
+    REFERENCES `projet_db`.`Librairie` (`id_librairie`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Evaluation`
+-- Table `projet_db`.`Evaluation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Evaluation` (
+CREATE TABLE IF NOT EXISTS `projet_db`.`Evaluation` (
   `id_evaluation` INT NOT NULL,
   `id_utilisateur` INT NULL,
   `id_jeu` VARCHAR(45) NULL,
@@ -59,9 +60,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Emprunt`
+-- Table `projet_db`.`Emprunt`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Emprunt` (
+CREATE TABLE IF NOT EXISTS `projet_db`.`Emprunt` (
   `id_emprunt` INT NOT NULL,
   `id_utilisateur` INT NULL,
   `id_jeu` INT NULL,
@@ -72,9 +73,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Jeu`
+-- Table `projet_db`.`Jeu`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Jeu` (
+CREATE TABLE IF NOT EXISTS `projet_db`.`Jeu` (
   `id_jeu` INT NOT NULL,
   `titre` VARCHAR(45) NULL,
   `genre` VARCHAR(45) NULL,
@@ -89,17 +90,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Jeu` (
   INDEX `fk_Jeu_Emprunt1_idx` (`Emprunt_id_emprunt` ASC) VISIBLE,
   CONSTRAINT `fk_Jeu_Librairie1`
     FOREIGN KEY (`Librairie_id_librairie`)
-    REFERENCES `mydb`.`Librairie` (`id_librairie`)
+    REFERENCES `projet_db`.`Librairie` (`id_librairie`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Jeu_Evaluation1`
     FOREIGN KEY (`Evaluation_id_evaluation`)
-    REFERENCES `mydb`.`Evaluation` (`id_evaluation`)
+    REFERENCES `projet_db`.`Evaluation` (`id_evaluation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Jeu_Emprunt1`
     FOREIGN KEY (`Emprunt_id_emprunt`)
-    REFERENCES `mydb`.`Emprunt` (`id_emprunt`)
+    REFERENCES `projet_db`.`Emprunt` (`id_emprunt`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
