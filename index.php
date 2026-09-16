@@ -17,6 +17,10 @@ switch ($action){
         require __DIR__ . '/Controleurs/jeux-controleur.php';
         break;
 
+    case 'supprimer-jeu':
+        require __DIR__ . '/Controleurs/jeux-controleur.php';
+        break;
+
     case 'recits':
         require __DIR__ . '/Vues/recits.php';
         break;

@@ -24,3 +24,14 @@ function addJeux(PDO $pdo, string $titre, int $annee_sortie, string $genre): voi
         ':genre' => $genre
     ]);
 }
+
+function deleteJeux(PDO $pdo, int $id_jeu): void
+{
+    $requete = $pdo->prepare(
+        "DELETE FROM jeu WHERE id_jeu = :id_jeu"
+    );
+
+    $requete->execute([
+        ':id_jeu' => $id_jeu
+    ]);
+}
