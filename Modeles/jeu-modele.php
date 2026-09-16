@@ -10,3 +10,17 @@ function getJeux(PDO $pdo): array
 
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function addJeux(PDO $pdo, string $titre, int $annee_sortie, string $genre): void
+{
+    $requete = $pdo->prepare(
+        "INSERT INTO jeu (titre, annee_sortie, genre)
+        VALUES (:titre, :annee_sortie, :genre)"
+    );
+
+    $requete->execute([
+        ':titre' => $titre,
+        ':annee_sortie' => $annee_sortie,
+        ':genre' => $genre
+    ]);
+}

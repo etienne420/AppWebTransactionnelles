@@ -14,7 +14,7 @@ $descriptionProjet = 'Une bibliotheque de jeux où des utilisateurs peuvent gér
 </head>
 
 <body>
-    <h1><?= htmlspecialchars($nomProjet) ?></h1>
+    <h1><?= htmlspecialchars($nomProjet) ?></h1>  
 
     <p>Auteur : <?= htmlspecialchars($auteur) ?></p>
 
@@ -23,8 +23,8 @@ $descriptionProjet = 'Une bibliotheque de jeux où des utilisateurs peuvent gér
     <p>Description du projet : <?= htmlspecialchars($descriptionProjet) ?></p>
 
     <nav>
-        <a href="recits.php">Récits</a>
-        <a href="jeu.php">Jeux</a>
+        <a href="index.php?action=recits">Récits</a>
+        <a href="index.php?action=jeux">Jeux</a>
     </nav>
 </body>
 </html>
