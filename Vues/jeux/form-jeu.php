@@ -1,4 +1,10 @@
 
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un jeu - Biblio de jeux</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
 
 
 <h1>Ajouter un jeu</h1>
@@ -24,3 +30,7 @@
 
         <button type="submit">Ajouter le jeu</button>
     </form>
+
+<p>
+    <a href="index.php?action=accueil">Retour à l'accueil</a>
+</p>
