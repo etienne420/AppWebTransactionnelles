@@ -30,10 +30,14 @@
                 Genre : <?= htmlspecialchars($jeu['genre'], ENT_QUOTES, 'UTF-8') ?>
             </p>
 
-            <form action="index.php?action=supprimer-jeu" method="post">
-                <input type="hidden" name="id_jeu" value="<?= (int) $jeu['id_jeu'] ?>">
-                <button type="submit">Supprimer</button>
-            </form>
+<form action="index.php?action=supprimer-jeu" method="post">
+    <input type="hidden" name="id_jeu" value="<?= (int) $jeu['id_jeu'] ?>">
+
+    <input type="hidden" name="jeton_csrf"
+        value="<?= htmlspecialchars(jetonCsrf(), ENT_QUOTES, 'UTF-8') ?>">
+
+    <button type="submit">Supprimer</button>
+</form>
 
             <hr>
 

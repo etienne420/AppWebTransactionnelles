@@ -1,1 +1,1 @@
-<h1>La page existe pas (404)</h1>
+<h1>La page existe pas</h1>
