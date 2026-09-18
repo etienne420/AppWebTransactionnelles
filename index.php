@@ -2,9 +2,13 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/config/securite.php';
+
+demarrerSession();
+
 $action = $_GET['action'] ?? 'accueil';
 
-switch ($action){
+switch ($action) {
     case 'accueil':
         require __DIR__ . '/Controleurs/accueil-controleur.php';
         break;
@@ -13,8 +17,25 @@ switch ($action){
         require __DIR__ . '/Controleurs/jeux-controleur.php';
         break;
 
+    case 'form-jeu':
+        require __DIR__ . '/Controleurs/form_jeu-controleur.php';
+        break;
+
     case 'ajouter-jeu':
         require __DIR__ . '/Controleurs/jeux-controleur.php';
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Méthode non permise";
+            break;
+        }
+
+        if (!verifierJetonCsrf($_POST['jeton_csrf'] ?? null)) {
+            http_response_code(403);
+            echo "Requête refusée";
+            break;
+        }
+
         break;
 
     case 'supprimer-jeu':
@@ -22,7 +43,7 @@ switch ($action){
         break;
 
     case 'recits':
-        require __DIR__ . '/Vues/recits.php';
+        require __DIR__ . '/Controleurs/recits-controleur.php';
         break;
 
     default:
