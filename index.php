@@ -22,23 +22,34 @@ switch ($action) {
         break;
 
     case 'ajouter-jeu':
-        require __DIR__ . '/Controleurs/jeux-controleur.php';
-
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
-            echo "Méthode non permise";
+            require __DIR__ . '/Vues/erreur.php';
             break;
         }
 
         if (!verifierJetonCsrf($_POST['jeton_csrf'] ?? null)) {
             http_response_code(403);
-            echo "Requête refusée";
+            require __DIR__ . '/Vues/erreur.php';
             break;
         }
 
+        require __DIR__ . '/Controleurs/jeux-controleur.php';
         break;
 
     case 'supprimer-jeu':
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            require __DIR__ . '/Vues/erreur.php';
+            break;
+        }
+
+        if (!verifierJetonCsrf($_POST['jeton_csrf'] ?? null)) {
+            http_response_code(403);
+            require __DIR__ . '/Vues/erreur.php';
+            break;
+        }
+
         require __DIR__ . '/Controleurs/jeux-controleur.php';
         break;
 
