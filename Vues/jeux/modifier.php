@@ -20,6 +20,8 @@
         <input type="text" id="genre" name="genre" value="<?= $this->echapper($jeu['genre']) ?>" required>
         <br>
 
+        <input type="hidden" name="jeton_csrf" value="<?= htmlspecialchars(jetonCsrf(), ENT_QUOTES, 'UTF-8') ?>">
+
         <button type="submit">Modifier</button>
     </form>
 

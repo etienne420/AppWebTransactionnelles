@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 class Routeur
 {
+    private ControleurAccueil $controleurAccueil;
     private ControleurJeux $controleurJeux;
     private ControleurErreur $controleurErreur;
 
-    public function __construct(ControleurJeux $controleurJeux, ControleurErreur $controleurErreur)
-    {
+    public function __construct(
+        ControleurAccueil $controleurAccueil,
+        ControleurJeux $controleurJeux,
+        ControleurErreur $controleurErreur
+    ) {
+        $this->controleurAccueil = $controleurAccueil;
         $this->controleurJeux = $controleurJeux;
         $this->controleurErreur = $controleurErreur;
     }
@@ -16,6 +21,14 @@ class Routeur
     public function router(string $action, string $methode): void
     {
         switch ($action) {
+            case 'accueil':
+                if ($methode === 'GET') {
+                    $this->controleurAccueil->index();
+                } else {
+                    $this->controleurErreur->page405();
+                }
+                break;
+
             case 'jeux':
                 if ($methode === 'GET') {
                     $this->controleurJeux->index();
@@ -60,7 +73,7 @@ class Routeur
                 if ($methode === 'GET') {
                     $this->controleurJeux->confirmerSuppression($id);
                 } elseif ($methode === 'POST') {
-                    $this->controleurJeux->supprimer($id);
+                    $this->controleurJeux->supprimer($id, $_POST);
                 } else {
                     $this->controleurErreur->page405();
                 }

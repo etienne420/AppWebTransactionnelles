@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Modeles/Jeu.php';
+require_once __DIR__ . '/../Modeles/jeu.php';
 require_once __DIR__ . '/../Vues/Vue.php';
-require_once __DIR__ . '/ControleurErreur.php';
+require_once __DIR__ . '/controleurErreur.php';
 
 class ControleurJeux
 {
@@ -35,12 +35,16 @@ class ControleurJeux
 
     public function ajouter(array $donnees): void
     {
+        if (!$this->verifierJetonCsrfRequete($donnees)) {
+            return;
+        }
+
         $titre = trim((string) ($donnees['titre'] ?? ''));
         $annee_sortie = (int) ($donnees['annee_sortie'] ?? 0);
         $genre = trim((string) ($donnees['genre'] ?? ''));
 
         if ($titre === '' || $genre === '' || $annee_sortie <= 0) {
-            $this->erreurs->page405();
+            $this->erreurs->page400();
             return;
         }
 
@@ -64,6 +68,10 @@ class ControleurJeux
     }
     public function modifier(int $id, array $donnees): void
     {
+        if (!$this->verifierJetonCsrfRequete($donnees)) {
+            return;
+        }
+
         $jeu = $this->trouverJeuOu404($id);
 
         if ($jeu === null) {
@@ -75,7 +83,7 @@ class ControleurJeux
         $genre = trim((string) ($donnees['genre'] ?? ''));
 
         if ($titre === '' || $genre === '' || $annee_sortie <= 0) {
-            $this->erreurs->page405();
+            $this->erreurs->page400();
             return;
         }
 
@@ -98,8 +106,12 @@ class ControleurJeux
         ]);
     }
 
-    public function supprimer(int $id): void
+    public function supprimer(int $id, array $donnees): void
     {
+        if (!$this->verifierJetonCsrfRequete($donnees)) {
+            return;
+        }
+
         $jeu = $this->trouverJeuOu404($id);
 
         if ($jeu === null) {
@@ -123,5 +135,15 @@ class ControleurJeux
         }
 
         return $jeu;
+    }
+
+    private function verifierJetonCsrfRequete(array $donnees): bool
+    {
+        if (!verifierJetonCsrf($donnees['jeton_csrf'] ?? null)) {
+            $this->erreurs->page403();
+            return false;
+        }
+
+        return true;
     }
 }

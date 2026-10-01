@@ -1,7 +1,7 @@
 # Bibliothèque de jeux de société
 
 Application Web transactionnelle développée en PHP avec une architecture MVC.
-L'application permet de consulter, ajouter et supprimer des jeux de société.
+L'application permet de consulter, ajouter, modifier et supprimer des jeux de société.
 
 ## Prérequis
 
@@ -12,11 +12,11 @@ L'application permet de consulter, ajouter et supprimer des jeux de société.
 ## Installation
 
 1. Placer le projet dans le dossier du serveur Apache.
-2. Créer la base de données MySQL.
-3. Exécuter `database/schema.sql`.
-4. Configurer les informations de connexion à la base de données.
-5. Démarrer Apache et MySQL.
-6. Ouvrir l'application avec `index.php`.
+2. Démarrer Apache et MySQL.
+3. Exécuter `database/schema.sql` dans MySQL.
+4. Ouvrir `index.php` dans le navigateur.
+
+En développement local, la connexion utilise par défaut `127.0.0.1:3306`, la base `projet_db`, l'utilisateur `root` et aucun mot de passe. Si votre installation MySQL utilise d'autres paramètres, définissez `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` et `DB_PASSWORD` dans l'environnement Apache. Pour un serveur public, définissez toujours des identifiants dédiés au lieu des valeurs locales par défaut.
 
 ## Routage
 
@@ -27,21 +27,21 @@ Exemples :
 ```text
 index.php?action=accueil
 index.php?action=jeux
-index.php?action=form-jeu
-index.php?action=ajouter-jeu
-index.php?action=supprimer-jeu
+index.php?action=ajouter
+index.php?action=modifier&id=1
+index.php?action=supprimer&id=1
 ```
 
 Les contrôleurs, modèles et vues ne sont pas appelés directement depuis le navigateur.
 
 ## Fonctionnalités
 
+* Afficher la page d'accueil
 * Afficher la liste des jeux
-* Consulter les informations d'un jeu
 * Ajouter un jeu
+* Modifier un jeu
 * Supprimer un jeu avec confirmation
-* Afficher les données liées à un jeu
-* Valider les données des formulaires
+* Valider les champs obligatoires
 * Protéger les opérations d'écriture avec un jeton CSRF
 * Gérer les erreurs HTTP
 
@@ -52,8 +52,8 @@ Les contrôleurs, modèles et vues ne sont pas appelés directement depuis le na
 * Les formulaires utilisent un jeton CSRF.
 * Les données reçues par `GET` et `POST` sont validées côté serveur.
 * Les identifiants sont validés avant leur utilisation.
-* Les opérations de modification utilisent uniquement `POST`.
-* Une requête `GET` sur une opération de modification retourne une erreur `405`.
+* Les opérations d'écriture utilisent `POST`.
+* Les requêtes `GET` servent à afficher les pages et formulaires.
 * Un jeton CSRF invalide ou absent retourne une erreur `403`.
 
 ## Gestion des erreurs
@@ -87,12 +87,9 @@ Le débogage utilise le port `9003`.
 Les fonctionnalités suivantes ont été vérifiées :
 
 * Afficher la liste des jeux
-* Accéder au détail d'un jeu
 * Utiliser un identifiant invalide
 * Ajouter un jeu valide
 * Vérifier les champs obligatoires
-* Vérifier la longueur des champs
-* Conserver les valeurs valides lorsqu'un formulaire contient une erreur
 * Tester une valeur contenant du SQL
 * Vérifier le jeton CSRF
 * Vérifier qu'une requête GET ne peut pas effectuer une modification
@@ -111,9 +108,7 @@ Un récit est indiqué comme **Complété** seulement lorsque tous ses critères
 
 ## Base de données
 
-Le fichier `database/schema.sql` contient la structure de la base de données ainsi que les tables utilisées par l'application.
-
-Les relations entre les ressources utilisent des clés primaires et étrangères.
+Le fichier `database/schema.sql` crée la base `projet_db` et la table `jeu` utilisée par le CRUD actif. Les autres scripts SQL du dépôt sont conservés pour les anciens travaux et ne sont pas requis pour lancer cette version.
 
 ## Git
 

@@ -17,6 +17,12 @@ class ControleurErreur
         $this->afficherErreur('Page introuvable.', 404);
     }
 
+    public function page400(): void
+    {
+        http_response_code(400);
+        $this->afficherErreur('Données invalides.', 400);
+    }
+
     public function page405(): void
     {
         http_response_code(405);

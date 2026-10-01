@@ -33,5 +33,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <p><a href="index.php?action=accueil">Retour à l'accueil</a></p>
 </body>
 </html>

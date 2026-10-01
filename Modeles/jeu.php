@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/Modele.php';
+require_once __DIR__ . '/modele.php';
 
 class Jeu extends Modele
 {
@@ -33,6 +33,33 @@ class Jeu extends Modele
             'DELETE FROM jeu
              WHERE id_jeu = :id_jeu',
             ['id_jeu' => $id_jeu]
+        );
+    }
+
+        public function trouver(int $id_jeu): ?array
+    {
+        $resultat = $this->executer(
+            'SELECT id_jeu, titre, annee_sortie, genre
+             FROM jeu
+             WHERE id_jeu = :id_jeu',
+            ['id_jeu' => $id_jeu]
+        )->fetch();
+
+        return $resultat === false ? null : $resultat;
+    }
+
+    public function modifier(int $id_jeu, string $titre, int $annee_sortie, string $genre): void
+    {
+        $this->executer(
+            'UPDATE jeu
+             SET titre = :titre, annee_sortie = :annee_sortie, genre = :genre
+             WHERE id_jeu = :id_jeu',
+            [
+                'titre' => $titre,
+                'annee_sortie' => $annee_sortie,
+                'genre' => $genre,
+                'id_jeu' => $id_jeu,
+            ]
         );
     }
 }

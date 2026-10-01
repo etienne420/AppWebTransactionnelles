@@ -1,0 +1,15 @@
+CREATE DATABASE IF NOT EXISTS projet_db
+    DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE projet_db;
+
+CREATE TABLE IF NOT EXISTS jeu (
+    id_jeu INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    titre VARCHAR(150) NOT NULL,
+    annee_sortie SMALLINT UNSIGNED NOT NULL,
+    genre VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id_jeu)
+) ENGINE=InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
