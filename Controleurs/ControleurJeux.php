@@ -85,7 +85,7 @@ class ControleurJeux
         exit;
     }
 
-    public function confirmerSuppression(int $id): void
+        public function confirmerSuppression(int $id): void
     {
         $jeu = $this->trouverJeuOu404($id);
 
@@ -111,6 +111,7 @@ class ControleurJeux
         header('Location: index.php?action=jeux');
         exit;
     }
+
 
     private function trouverJeuOu404(int $id): ?array
     {
