@@ -62,6 +62,55 @@ class ControleurJeux
             'jeu' => $jeu,
         ]);
     }
+    public function modifier(int $id, array $donnees): void
+    {
+        $jeu = $this->trouverJeuOu404($id);
+
+        if ($jeu === null) {
+            return;
+        }
+
+        $titre = trim((string) ($donnees['titre'] ?? ''));
+        $annee_sortie = (int) ($donnees['annee_sortie'] ?? 0);
+        $genre = trim((string) ($donnees['genre'] ?? ''));
+
+        if ($titre === '' || $genre === '' || $annee_sortie <= 0) {
+            $this->erreurs->page405();
+            return;
+        }
+
+        $this->jeux->modifier($id, $titre, $annee_sortie, $genre);
+
+        header('Location: index.php?action=jeux');
+        exit;
+    }
+
+    public function confirmerSuppression(int $id): void
+    {
+        $jeu = $this->trouverJeuOu404($id);
+
+        if ($jeu === null) {
+            return;
+        }
+
+        $this->vue->afficher(__DIR__ . '/../Vues/jeux/supprimer.php', [
+            'jeu' => $jeu,
+        ]);
+    }
+
+    public function supprimer(int $id): void
+    {
+        $jeu = $this->trouverJeuOu404($id);
+
+        if ($jeu === null) {
+            return;
+        }
+
+        $this->jeux->supprimer($id);
+
+        header('Location: index.php?action=jeux');
+        exit;
+    }
 
     private function trouverJeuOu404(int $id): ?array
     {
