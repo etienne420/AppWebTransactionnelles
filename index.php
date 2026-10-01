@@ -2,63 +2,34 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/config/securite.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/Modeles/Modele.php';
+require_once __DIR__ . '/Modeles/Jeu.php';
+require_once __DIR__ . '/Vues/Vue.php';
+require_once __DIR__ . '/Controleurs/ControleurErreur.php';
+require_once __DIR__ . '/Controleurs/ControleurJeux.php';
+require_once __DIR__ . '/Routeur.php';
 
-demarrerSession();
+$vue = new Vue();
+$controleurErreur = new ControleurErreur($vue);
 
-$action = $_GET['action'] ?? 'accueil';
-
-switch ($action) {
-    case 'accueil':
-        require __DIR__ . '/Controleurs/accueil-controleur.php';
-        break;
-
-    case 'jeux':
-        require __DIR__ . '/Controleurs/jeux-controleur.php';
-        break;
-
-    case 'form-jeu':
-        require __DIR__ . '/Controleurs/form_jeu-controleur.php';
-        break;
-
-    case 'ajouter-jeu':
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405);
-            require __DIR__ . '/Vues/erreur.php';
-            break;
-        }
-
-        if (!verifierJetonCsrf($_POST['jeton_csrf'] ?? null)) {
-            http_response_code(403);
-            require __DIR__ . '/Vues/erreur.php';
-            break;
-        }
-
-        require __DIR__ . '/Controleurs/jeux-controleur.php';
-        break;
-
-    case 'supprimer-jeu':
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405);
-            require __DIR__ . '/Vues/erreur.php';
-            break;
-        }
-
-        if (!verifierJetonCsrf($_POST['jeton_csrf'] ?? null)) {
-            http_response_code(403);
-            require __DIR__ . '/Vues/erreur.php';
-            break;
-        }
-
-        require __DIR__ . '/Controleurs/jeux-controleur.php';
-        break;
-
-    case 'recits':
-        require __DIR__ . '/Controleurs/recits-controleur.php';
-        break;
-
-    default:
-        http_response_code(404);
-        require __DIR__ . '/Vues/erreur.php';
-        break;
+try {
+    $pdo = new PDO(
+        'mysql:host=' . DB_HOTE . ';dbname=' . DB_NOM . ';charset=utf8mb4',
+        DB_UTILISATEUR,
+        DB_MOT_DE_PASSE,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+} catch (PDOException $exception) {
+    $controleurErreur->page500();
+    exit;
 }
+
+$modeleJeux = new Jeu($pdo);
+$controleurJeux = new ControleurJeux($modeleJeux, $vue, $controleurErreur);
+$routeur = new Routeur($controleurJeux, $controleurErreur);
+
+$action = $_GET['action'] ?? 'jeux';
+$methode = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
+$routeur->router($action, $methode);

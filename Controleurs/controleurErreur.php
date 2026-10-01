@@ -28,6 +28,11 @@ class ControleurErreur
         http_response_code(403);
         $this->afficherErreur('Accès interdit.', 403);
     }
+    public function page500(): void
+    {
+        http_response_code(500);
+        $this->afficherErreur('Erreur serveur.', 500);
+    }
 
     private function afficherErreur(string $message, int $code): void
     {
