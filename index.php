@@ -6,7 +6,7 @@ require_once __DIR__ . '/Modeles/modele.php';
 require_once __DIR__ . '/Modeles/jeu.php';
 require_once __DIR__ . '/Vues/Vue.php';
 require_once __DIR__ . '/Controleurs/controleurErreur.php';
-require_once __DIR__ . '/Controleurs/accueil-controleur.php';
+require_once __DIR__ . '/Controleurs/controleurAccueil.php';
 require_once __DIR__ . '/Controleurs/ControleurJeux.php';
 require_once __DIR__ . '/config/securite.php';
 require_once __DIR__ . '/Routeur.php';
