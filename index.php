@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/Modeles/Modele.php';
 require_once __DIR__ . '/Modeles/Jeu.php';
 require_once __DIR__ . '/Vues/Vue.php';
@@ -14,13 +13,8 @@ $vue = new Vue();
 $controleurErreur = new ControleurErreur($vue);
 
 try {
-    $pdo = new PDO(
-        'mysql:host=' . DB_HOTE . ';dbname=' . DB_NOM . ';charset=utf8mb4',
-        DB_UTILISATEUR,
-        DB_MOT_DE_PASSE,
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
-} catch (PDOException $exception) {
+    require __DIR__ . '/config/bd.php';
+} catch (Throwable $exception) {
     $controleurErreur->page500();
     exit;
 }
