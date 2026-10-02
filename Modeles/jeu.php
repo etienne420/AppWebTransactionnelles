@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/modele.php';
+require_once __DIR__ . '/Modele.php';
 
 class Jeu extends Modele
 {

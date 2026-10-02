@@ -20,6 +20,8 @@ class Routeur
 
     public function router(string $action, string $methode): void
     {
+        $action = $this->extraireAction() ?? $action;
+
         switch ($action) {
             case 'accueil':
                 if ($methode === 'GET') {
@@ -85,12 +87,57 @@ class Routeur
         }
     }
 
-    private function extraireId(): ?int
+    private function extraireAction(): ?string
     {
-        if (!isset($_GET['id']) || !ctype_digit((string) $_GET['id'])) {
+        if (isset($_GET['action']) && is_string($_GET['action']) && $_GET['action'] !== '') {
+            return $_GET['action'];
+        }
+
+        $chemin = $this->extraireCheminDepuisRequete();
+
+        if ($chemin === '') {
             return null;
         }
 
-        return (int) $_GET['id'];
+        $segments = explode('/', $chemin);
+
+        return $segments[0] !== '' ? $segments[0] : null;
+    }
+
+    private function extraireId(): ?int
+    {
+        if (isset($_GET['id']) && ctype_digit((string) $_GET['id'])) {
+            return (int) $_GET['id'];
+        }
+
+        $chemin = $this->extraireCheminDepuisRequete();
+
+        if ($chemin === '') {
+            return null;
+        }
+
+        $segments = explode('/', $chemin);
+
+        if (count($segments) < 2 || !ctype_digit((string) $segments[1])) {
+            return null;
+        }
+
+        return (int) $segments[1];
+    }
+
+    private function extraireCheminDepuisRequete(): string
+    {
+        $uri = $_SERVER['REQUEST_URI'] ?? $_SERVER['PHP_SELF'] ?? '';
+        $uri = parse_url($uri, PHP_URL_PATH) ?: $uri;
+        $uri = trim($uri, '/');
+
+        $base = dirname($_SERVER['SCRIPT_NAME'] ?? '/');
+        $base = trim($base, '/');
+
+        if ($base !== '' && $uri !== '' && str_starts_with($uri, $base)) {
+            $uri = substr($uri, strlen($base));
+        }
+
+        return trim($uri, '/');
     }
 }

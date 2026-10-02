@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Modeles/jeu.php';
+require_once __DIR__ . '/../Modeles/Jeu.php';
 require_once __DIR__ . '/../Vues/Vue.php';
-require_once __DIR__ . '/controleurErreur.php';
+require_once __DIR__ . '/ControleurErreur.php';
 
 class ControleurJeux
 {
@@ -50,7 +50,7 @@ class ControleurJeux
 
         $this->jeux->ajouter($titre, $annee_sortie, $genre);
 
-        header('Location: index.php?action=jeux');
+        header('Location: /projet/jeux');
         exit;
     }
 
@@ -89,7 +89,7 @@ class ControleurJeux
 
         $this->jeux->modifier($id, $titre, $annee_sortie, $genre);
 
-        header('Location: index.php?action=jeux');
+        header('Location: /projet/jeux');
         exit;
     }
 
@@ -120,7 +120,7 @@ class ControleurJeux
 
         $this->jeux->supprimer($id);
 
-        header('Location: index.php?action=jeux');
+        header('Location: /projet/jeux');
         exit;
     }
 

@@ -23,7 +23,7 @@ $descriptionProjet = 'Une bibliotheque de jeux où des utilisateurs peuvent gér
     <p>Description du projet : <?= htmlspecialchars($descriptionProjet) ?></p>
 
     <nav>
-        <a href="index.php?action=jeux">Jeux</a>
+        <a href="jeux">Jeux</a>
     </nav>
 </body>
 </html>

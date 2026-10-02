@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/Modeles/modele.php';
-require_once __DIR__ . '/Modeles/jeu.php';
+require_once __DIR__ . '/Modeles/Modele.php';
+require_once __DIR__ . '/Modeles/Jeu.php';
 require_once __DIR__ . '/Vues/Vue.php';
-require_once __DIR__ . '/Controleurs/controleurErreur.php';
-require_once __DIR__ . '/Controleurs/controleurAccueil.php';
+require_once __DIR__ . '/Controleurs/ControleurErreur.php';
+require_once __DIR__ . '/Controleurs/ControleurAccueil.php';
 require_once __DIR__ . '/Controleurs/ControleurJeux.php';
 require_once __DIR__ . '/config/securite.php';
 require_once __DIR__ . '/Routeur.php';

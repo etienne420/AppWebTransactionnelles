@@ -7,7 +7,7 @@
 <body>
     <h1>Modifier un jeu</h1>
 
-    <form method="POST" action="index.php?action=modifier&id=<?= (int) $jeu['id_jeu'] ?>">
+    <form method="POST" action="/projet/modifier/<?= (int) $jeu['id_jeu'] ?>">
         <label for="titre">Titre :</label>
         <input type="text" id="titre" name="titre" value="<?= $this->echapper($jeu['titre']) ?>" required>
         <br>
@@ -25,6 +25,6 @@
         <button type="submit">Modifier</button>
     </form>
 
-    <p><a href="index.php?action=jeux">Retour à la liste</a></p>
+    <p><a href="/projet/jeux">Retour à la liste</a></p>
 </body>
 </html>
