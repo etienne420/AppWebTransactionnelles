@@ -29,7 +29,13 @@ INSERT INTO evaluation (id_evaluation, id_utilisateur, id_jeu, note, commentaire
 INSERT INTO evaluation (id_evaluation, id_utilisateur, id_jeu, note, commentaire) VALUES (2, 2, 3, 10, 'Un excellent RPG avec un monde immense et beaucoup de boss.');
 INSERT INTO evaluation (id_evaluation, id_utilisateur, id_jeu, note, commentaire) VALUES (3, 3, 2, 8, 'Très amusant, surtout avec des amis.');
 
+INSERT INTO utilisateurs (nom, identifiant, mot_de_passe)
+VALUES ('Bob', 'bob@gmail.com', '$2y$10$WnKgXj4qzpu2i7IT1bmKBeyihkhYuth0JI2oCnLRwj8Zg6TJwZcSi');
+
 SELECT * FROM librairie;
-SELECT * FROM utilisateur;
+SELECT * FROM utilisateurs;
 SELECT * FROM jeu;
 SELECT * FROM evaluation;
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM utilisateur;

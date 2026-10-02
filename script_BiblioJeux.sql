@@ -28,25 +28,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `projet_db`.`Utilisateur`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `projet_db`.`Utilisateur` (
-  `idUtilisateur` INT NOT NULL,
-  `nom` VARCHAR(45) NULL,
-  `courriel` VARCHAR(45) NULL,
-  `role` VARCHAR(45) NULL,
-  `Librairie_id_librairie` INT NOT NULL,
-  PRIMARY KEY (`idUtilisateur`),
-  INDEX `fk_Utilisateur_Librairie_idx` (`Librairie_id_librairie` ASC) VISIBLE,
-  CONSTRAINT `fk_Utilisateur_Librairie`
-    FOREIGN KEY (`Librairie_id_librairie`)
-    REFERENCES `projet_db`.`Librairie` (`id_librairie`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `projet_db`.`Evaluation`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projet_db`.`Evaluation` (
@@ -113,6 +94,11 @@ CREATE TABLE utilisateurs (
 );
 
 
+USE projet_db;
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS Utilisateur;
+SET FOREIGN_KEY_CHECKS = 1;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

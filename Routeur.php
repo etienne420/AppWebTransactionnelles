@@ -6,15 +6,18 @@ class Routeur
 {
     private ControleurAccueil $controleurAccueil;
     private ControleurJeux $controleurJeux;
+    private ControleurUtilisateur $controleurUtilisateur;
     private ControleurErreur $controleurErreur;
 
     public function __construct(
         ControleurAccueil $controleurAccueil,
         ControleurJeux $controleurJeux,
+        ControleurUtilisateur $controleurUtilisateur,
         ControleurErreur $controleurErreur
     ) {
         $this->controleurAccueil = $controleurAccueil;
         $this->controleurJeux = $controleurJeux;
+        $this->controleurUtilisateur = $controleurUtilisateur;
         $this->controleurErreur = $controleurErreur;
     }
 
@@ -34,6 +37,30 @@ class Routeur
             case 'jeux':
                 if ($methode === 'GET') {
                     $this->controleurJeux->index();
+                } else {
+                    $this->controleurErreur->page405();
+                }
+                break;
+
+            case 'connexion':
+                if ($methode === 'GET') {
+                    $this->controleurUtilisateur->connexion();
+                } else {
+                    $this->controleurErreur->page405();
+                }
+                break;
+
+            case 'authentifier':
+                if ($methode === 'POST') {
+                    $this->controleurUtilisateur->authentifier($_POST);
+                } else {
+                    $this->controleurErreur->page405();
+                }
+                break;
+
+            case 'deconnexion':
+                if ($methode === 'POST') {
+                    $this->controleurUtilisateur->deconnecter($_POST);
                 } else {
                     $this->controleurErreur->page405();
                 }

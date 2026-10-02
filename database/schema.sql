@@ -13,3 +13,14 @@ CREATE TABLE IF NOT EXISTS jeu (
 ) ENGINE=InnoDB
   DEFAULT CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS utilisateurs (
+        id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+        nom VARCHAR(100) NOT NULL,
+        identifiant VARCHAR(150) NOT NULL,
+        mot_de_passe VARCHAR(255) NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE KEY uq_utilisateurs_identifiant (identifiant)
+) ENGINE=InnoDB
+    DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;

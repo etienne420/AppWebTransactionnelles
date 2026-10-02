@@ -24,6 +24,15 @@ $descriptionProjet = 'Une bibliotheque de jeux où des utilisateurs peuvent gér
 
     <nav>
         <a href="jeux">Jeux</a>
+        <?php if ($utilisateur === null): ?>
+            <a href="connexion">Connexion</a>
+        <?php else: ?>
+            <span>Connecté : <?= htmlspecialchars($utilisateur['nom'], ENT_QUOTES, 'UTF-8') ?></span>
+            <form action="deconnexion" method="post">
+                <input type="hidden" name="jeton_csrf" value="<?= htmlspecialchars(jetonCsrf(), ENT_QUOTES, 'UTF-8') ?>">
+                <button type="submit">Se déconnecter</button>
+            </form>
+        <?php endif; ?>
     </nav>
 </body>
 </html>

@@ -27,6 +27,9 @@ Exemples :
 ```text
 index.php?action=accueil
 index.php?action=jeux
+index.php?action=connexion
+index.php?action=authentifier
+index.php?action=deconnexion
 index.php?action=ajouter
 index.php?action=modifier&id=1
 index.php?action=supprimer&id=1
@@ -38,6 +41,7 @@ Les contrôleurs, modèles et vues ne sont pas appelés directement depuis le na
 
 * Afficher la page d'accueil
 * Afficher la liste des jeux
+* Connecter et déconnecter un utilisateur
 * Ajouter un jeu
 * Modifier un jeu
 * Supprimer un jeu avec confirmation
@@ -108,7 +112,15 @@ Un récit est indiqué comme **Complété** seulement lorsque tous ses critères
 
 ## Base de données
 
-Le fichier `database/schema.sql` crée la base `projet_db` et la table `jeu` utilisée par le CRUD actif. Les autres scripts SQL du dépôt sont conservés pour les anciens travaux et ne sont pas requis pour lancer cette version.
+Le fichier `database/schema.sql` crée la base `projet_db` ainsi que les tables `jeu` et `utilisateurs` utilisées par l'application. Les autres scripts SQL du dépôt sont conservés pour les anciens travaux et ne sont pas requis pour lancer cette version.
+
+La création des comptes se fait directement dans la base. Générer d'abord un hachage avec PHP :
+
+```sh
+php -r "echo password_hash('votre-mot-de-passe', PASSWORD_DEFAULT), PHP_EOL;"
+```
+
+Puis enregistrer l'identifiant, le nom et le hachage retourné dans `utilisateurs.mot_de_passe`. L'application ne stocke jamais le mot de passe en clair.
 
 ## Git
 

@@ -7,14 +7,18 @@ require_once __DIR__ . '/../Vues/Vue.php';
 class ControleurAccueil
 {
 	private Vue $vue;
+	private Authentification $authentification;
 
-	public function __construct(Vue $vue)
+	public function __construct(Vue $vue, Authentification $authentification)
 	{
 		$this->vue = $vue;
+		$this->authentification = $authentification;
 	}
 
 	public function index(): void
 	{
-		$this->vue->afficher(__DIR__ . '/../Vues/accueil.php');
+		$this->vue->afficher(__DIR__ . '/../Vues/accueil.php', [
+			'utilisateur' => $this->authentification->utilisateur(),
+		]);
 	}
 }
