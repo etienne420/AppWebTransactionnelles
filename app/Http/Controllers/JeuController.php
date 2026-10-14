@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Jeu;
+use Illuminate\View\View;
+
 class JeuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
-        //
+        $jeux = Jeu::query()
+            ->orderBy('titre')
+            ->paginate(10);
+
+        return view('jeux.index', compact('jeux'));
     }
 
     /**
@@ -30,12 +34,9 @@ class JeuController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Jeu $jeu): View
     {
-        //
+        return view('jeux.show', compact('jeu'));
     }
 
     /**
