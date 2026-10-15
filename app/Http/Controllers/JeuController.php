@@ -56,10 +56,12 @@ class JeuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+public function update(EnregistrerJeuRequest $request, Jeu $jeu): RedirectResponse{
+    $jeu->update($request->validated());
+
+    return redirect()->route('jeux.show', $jeu)
+        ->with('status', 'Jeu modifié.');
+}
 
     /**
      * Remove the specified resource from storage.
