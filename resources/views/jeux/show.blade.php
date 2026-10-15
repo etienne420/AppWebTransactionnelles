@@ -6,4 +6,10 @@
 
 <p><a href="{{ route('jeux.edit', $jeu) }}">Modifier</a></p>
 
+<form method="post" action="{{ route('jeux.destroy', $jeu) }}">
+    @csrf
+    @method('DELETE')
+    <button type="submit">Supprimer</button>
+</form>
+
 <a href="{{ route('jeux.index') }}">Retour à la liste</a>
