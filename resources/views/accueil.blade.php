@@ -1,0 +1,1 @@
+<a href="{{ route('jeux.index') }}">Voir les jeux</a>
