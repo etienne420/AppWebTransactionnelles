@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\EnregistrerJeuRequest;
 use App\Models\Jeu;
 use Illuminate\View\View;
 
@@ -29,9 +31,12 @@ class JeuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EnregistrerJeuRequest $request): RedirectResponse
     {
-        //
+        $jeu = Jeu::create($request->validated());
+
+        return redirect()->route('jeux.index')
+            ->with('status', 'Jeu ajouté.');
     }
 
     public function show(Jeu $jeu): View

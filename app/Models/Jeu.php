@@ -14,9 +14,4 @@ class Jeu extends Model
         'annee_sortie',
         'description',
     ];
-
-    protected function casts(): array
-    {
-        return ['annee_sortie' => 'integer'];
-    }
 }
