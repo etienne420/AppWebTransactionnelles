@@ -7,8 +7,6 @@
                 {{ $jeu->titre }}
             </a>
         </h2>
-
-        <p>{{ $jeu->genre ?? 'Genre non précisé' }}</p>
     </article>
 @empty
     <p>Aucun jeu à afficher.</p>

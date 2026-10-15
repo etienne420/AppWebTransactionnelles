@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JeuController;
 
 Route::get('/', function () {
-    return "yo";
+    return "page index";
 });
 
-Route::resource('jeux', JeuController::class);
+Route::resource('jeux', JeuController::class)
+    ->parameters(['jeux' => 'jeu']);
