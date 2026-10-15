@@ -56,18 +56,22 @@ class JeuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-public function update(EnregistrerJeuRequest $request, Jeu $jeu): RedirectResponse{
-    $jeu->update($request->validated());
+    public function update(EnregistrerJeuRequest $request, Jeu $jeu): RedirectResponse
+    {
+        $jeu->update($request->validated());
 
-    return redirect()->route('jeux.show', $jeu)
-        ->with('status', 'Jeu modifié.');
-}
+        return redirect()->route('jeux.show', $jeu)
+            ->with('status', 'Jeu modifié.');
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Jeu $jeu): RedirectResponse
     {
-        //
+        $jeu->delete();
+
+        return redirect()->route('jeux.index')
+            ->with('status', 'Jeu supprimé.');
     }
 }
