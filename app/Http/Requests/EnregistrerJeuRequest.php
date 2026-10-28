@@ -18,6 +18,7 @@ class EnregistrerJeuRequest extends FormRequest
             'genre' => ['nullable', 'string', 'max:100'],
             'annee_sortie' => ['nullable', 'integer', 'min:1', 'max:65535'],
             'description' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048']
         ];
     }
 }

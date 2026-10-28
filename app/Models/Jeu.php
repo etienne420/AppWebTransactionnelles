@@ -13,5 +13,6 @@ class Jeu extends Model
         'genre',
         'annee_sortie',
         'description',
+        'image_path',
     ];
 }

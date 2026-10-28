@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EnregistrerJeuRequest;
 use App\Models\Jeu;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class JeuController extends Controller
 {
@@ -31,13 +33,30 @@ class JeuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(EnregistrerJeuRequest $request): RedirectResponse
     {
-        $jeu = Jeu::create($request->validated());
+        $data = $request->safe()->except('image');
+        $path = $request->file('image')?->store('jeux', 'public');
+
+        try {
+            $jeu = Jeu::create([
+                ...$data,
+                'image_path' => $path,
+                'published_at' => now(),
+            ]);
+        } catch (Throwable $exception) {
+            if ($path) {
+                Storage::disk('public')->delete($path);
+            }
+
+            throw $exception;
+        }
 
         return redirect()->route('jeux.index')
             ->with('status', 'Jeu ajouté.');
     }
+
 
     public function show(Jeu $jeu): View
     {
@@ -58,10 +77,27 @@ class JeuController extends Controller
      */
     public function update(EnregistrerJeuRequest $request, Jeu $jeu): RedirectResponse
     {
-        $jeu->update($request->validated());
 
-        return redirect()->route('jeux.show', $jeu)
-            ->with('status', 'Jeu modifié.');
+        $data = $request->safe()->except('image');
+        $newPath = $request->file('image')?->store('jeux', 'public');
+        $oldPath = $jeu->image_path;
+
+        try {
+            $jeu->update([
+                ...$data,
+                ...($newPath ? ['image_path' => $newPath] : []),
+            ]);
+        } catch (Throwable $exception) {
+            if ($newPath) {
+                Storage::disk('public')->delete($newPath);
+            }
+            throw $exception;
+        }
+
+        if ($newPath && $oldPath) {
+            Storage::disk('public')->delete($oldPath);
+        }
+
     }
 
     /**
