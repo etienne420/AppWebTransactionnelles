@@ -1,15 +1,19 @@
+@extends('layouts.app')
+
+@section('title', 'Liste des jeux')
+
+@section('content')
 <h1>Liste des jeux</h1>
 
-<label for="search">Rechercher un jeu</label>
+<label for="search">{{ __('interface.search') }}</label>
 <input id="search" type="search" autocomplete="off"
        data-search-url="{{ route('recherche.jeux') }}"
-       data-searching="Recherche en cours..."
-       data-empty="Aucun résultat."
-       data-count=":count résultat(s)."
-       data-error="Recherche temporairement indisponible.">
+       data-searching="{{ __('interface.searching') }}"
+       data-empty="{{ __('interface.no_results') }}"
+       data-count="{{ __('interface.results') }}"
+       data-error="{{ __('interface.search_error') }}">
 <p id="search-status" role="status" aria-live="polite"></p>
 <ul id="search-results"></ul>
-
 
 @forelse ($jeux as $jeu)
     <article>
@@ -22,7 +26,11 @@
 @empty
     <p>Aucun jeu à afficher.</p>
 @endforelse
+
 <a href="{{ route('jeux.create') }}">Ajouter un jeu</a>
 {{ $jeux->links() }}
+@endsection
 
+@push('scripts')
 <script src="{{ asset('js/recherche.js') }}" defer></script>
+@endpush
