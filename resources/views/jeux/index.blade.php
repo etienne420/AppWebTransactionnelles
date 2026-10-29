@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Liste des jeux')
+@section('title', __('interface.list'))
 
 @section('content')
-<h1>Liste des jeux</h1>
+
+<h1>{{ __('interface.list') }}</h1>
 
 <label for="search">{{ __('interface.search') }}</label>
 <input id="search" type="search" autocomplete="off"
@@ -24,10 +25,10 @@
         </h2>
     </article>
 @empty
-    <p>Aucun jeu à afficher.</p>
+    <p>{{ __('interface.no_games') }}</p>
 @endforelse
 
-<a href="{{ route('jeux.create') }}">Ajouter un jeu</a>
+<a href="{{ route('jeux.create') }}">{{ __('interface.add_game') }}</a>
 {{ $jeux->links() }}
 @endsection
 
