@@ -21,6 +21,16 @@
         <button type="submit">{{ __('interface.apply') }}</button>
     </form>
 
+    @auth
+    <form method="post" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Se déconnecter</button>
+    </form>
+@else
+    <a href="{{ route('login') }}">Connexion</a>
+    <a href="{{ route('register') }}">Inscription</a>
+@endauth
+
     <main>
         @yield('content')
     </main>

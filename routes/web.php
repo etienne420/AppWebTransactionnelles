@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JeuController;
 use App\Http\Controllers\RechercheJeuController;
+use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -27,3 +29,14 @@ Route::post('/langue', function (Request $request) {
     return back();
 })->name('locale.update');
 
+Route::get('/inscription', [InscriptionController::class, 'create'])
+    ->middleware('guest')->name('register');
+Route::post('/inscription', [InscriptionController::class, 'store'])
+    ->middleware('guest')->name('register.store');
+
+Route::get('/connexion', [AuthController::class, 'create'])
+    ->middleware('guest')->name('login');
+Route::post('/connexion', [AuthController::class, 'login'])
+    ->middleware(['guest', 'throttle:6,1'])->name('login.store');
+Route::post('/deconnexion', [AuthController::class, 'logout'])
+    ->middleware('auth')->name('logout');

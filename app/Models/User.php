@@ -10,6 +10,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
+public const ROLE_MEMBER = 'member';
+public const ROLE_MANAGER = 'manager';
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
