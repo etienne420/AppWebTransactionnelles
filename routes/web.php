@@ -7,17 +7,27 @@ use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\CompteController;
+use App\Http\Controllers\BibliothequeController;
+use App\Http\Middleware\EnsureManager;
 
+Route::get('/', [JeuController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    return view('accueil');
-});
+Route::get('/compte', [CompteController::class, 'show'])
+    ->middleware('auth')->name('account.show');
 
 Route::get('/recherche/jeux', RechercheJeuController::class)
     ->name('recherche.jeux');
 
 Route::resource('jeux', JeuController::class)
     ->parameters(['jeux' => 'jeu']);
+
+Route::middleware('auth')->group(function () {
+    Route::post('/jeux/{jeu}/bibliotheque', [BibliothequeController::class, 'store'])
+        ->name('bibliotheque.store');
+    Route::delete('/jeux/{jeu}/bibliotheque', [BibliothequeController::class, 'destroy'])
+        ->name('bibliotheque.destroy');
+});
 
 Route::post('/langue', function (Request $request) {
     $data = $request->validate([
@@ -40,3 +50,8 @@ Route::post('/connexion', [AuthController::class, 'login'])
     ->middleware(['guest', 'throttle:6,1'])->name('login.store');
 Route::post('/deconnexion', [AuthController::class, 'logout'])
     ->middleware('auth')->name('logout');
+
+Route::middleware(['auth', EnsureManager::class])->group(function () {
+    Route::get('/administration', fn() => 'Administration')
+        ->name('admin.index');
+});

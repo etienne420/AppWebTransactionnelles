@@ -33,4 +33,12 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'back_to_list' => 'Back to list',
+    'my_account' => 'My account',
+    'my_library' => 'My library',
+    'empty_library' => 'Your library is empty.',
+    'add_to_library' => 'Add to my library',
+    'remove_from_library' => 'Remove from my library',
+    'added_to_library' => 'Game added to your library.',
+    'removed_from_library' => 'Game removed from your library.',
+    'logout' => 'Log out',
 ];

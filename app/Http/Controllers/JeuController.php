@@ -9,7 +9,10 @@ use App\Http\Requests\EnregistrerJeuRequest;
 use App\Models\Jeu;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Throwable;
+use Illuminate\Support\Facades\Gate;
+
 
 class JeuController extends Controller
 {
@@ -19,7 +22,14 @@ class JeuController extends Controller
             ->orderBy('titre')
             ->paginate(10);
 
-        return view('jeux.index', compact('jeux'));
+        $jeuxDansBibliotheque = Auth::check()
+            ? Auth::user()->jeux()
+                ->whereIn('jeux.id', $jeux->getCollection()->modelKeys())
+                ->pluck('jeux.id')
+                ->all()
+            : [];
+
+        return view('jeux.index', compact('jeux', 'jeuxDansBibliotheque'));
     }
 
     /**
@@ -58,9 +68,13 @@ class JeuController extends Controller
     }
 
 
-    public function show(Jeu $jeu): View
+    public function show(Request $request, Jeu $jeu): View
     {
-        return view('jeux.show', compact('jeu'));
+        $dansBibliotheque = $request->user()
+            ? $request->user()->jeux()->whereKey($jeu->getKey())->exists()
+            : false;
+
+        return view('jeux.show', compact('jeu', 'dansBibliotheque'));
     }
 
     /**
@@ -68,6 +82,7 @@ class JeuController extends Controller
      */
     public function edit(Jeu $jeu): View
     {
+        Gate::authorize('update', $jeu);
         return view('jeux.edit', compact('jeu'));
     }
 
@@ -105,6 +120,8 @@ class JeuController extends Controller
      */
     public function destroy(Jeu $jeu): RedirectResponse
     {
+
+    Gate::authorize('delete', $jeu);
         $jeu->delete();
 
         return redirect()->route('jeux.index')

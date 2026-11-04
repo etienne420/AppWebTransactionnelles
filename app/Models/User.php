@@ -7,12 +7,13 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
 
-public const ROLE_MEMBER = 'member';
-public const ROLE_MANAGER = 'manager';
+    public const ROLE_MEMBER = 'member';
+    public const ROLE_MANAGER = 'manager';
 
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -49,5 +50,12 @@ public const ROLE_MANAGER = 'manager';
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function jeux(): BelongsToMany
+    {
+        return $this->belongsToMany(Jeu::class, 'librairies', 'user_id', 'jeu_id')
+            ->withPivot('date_ajout')
+            ->withTimestamps();
     }
 }

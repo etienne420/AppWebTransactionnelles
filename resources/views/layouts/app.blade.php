@@ -22,9 +22,10 @@
     </form>
 
     @auth
+    <a href="{{ route('account.show') }}">{{ __('interface.my_account') }}</a>
     <form method="post" action="{{ route('logout') }}">
         @csrf
-        <button type="submit">Se déconnecter</button>
+        <button type="submit">{{ __('interface.logout') }}</button>
     </form>
 @else
     <a href="{{ route('login') }}">Connexion</a>
@@ -32,6 +33,9 @@
 @endauth
 
     <main>
+        @if (session('status'))
+            <p role="status">{{ session('status') }}</p>
+        @endif
         @yield('content')
     </main>
 </body>
