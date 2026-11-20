@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', __('interface.games'))</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @stack('scripts')
 </head>
 
 <body>
@@ -21,9 +20,27 @@
         <button type="submit">{{ __('interface.apply') }}</button>
     </form>
 
+    @auth
+    <a href="{{ route('account.show') }}">{{ __('interface.my_account') }}</a>
+    @if (auth()->user()?->role === \App\Models\User::ROLE_MANAGER)
+        <a href="{{ route('admin.index') }}">{{ __('interface.administration') }}</a>
+    @endif
+    <form method="post" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">{{ __('interface.logout') }}</button>
+    </form>
+@else
+    <a href="{{ route('login') }}">{{ __('interface.login') }}</a>
+    <a href="{{ route('register') }}">{{ __('interface.register') }}</a>
+@endauth
+
     <main>
+        @if (session('status'))
+            <p role="status">{{ session('status') }}</p>
+        @endif
         @yield('content')
     </main>
+    @stack('scripts')
 </body>
 
 </html>

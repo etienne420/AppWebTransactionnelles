@@ -23,12 +23,20 @@
                 {{ $jeu->titre }}
             </a>
         </h2>
+        @auth
+            @include('jeux._bibliotheque', [
+                'jeu' => $jeu,
+                'dansBibliotheque' => in_array($jeu->id, $jeuxDansBibliotheque),
+            ])
+        @endauth
     </article>
 @empty
     <p>{{ __('interface.no_games') }}</p>
 @endforelse
 
+@auth
 <a href="{{ route('jeux.create') }}">{{ __('interface.add_game') }}</a>
+@endauth
 {{ $jeux->links() }}
 @endsection
 

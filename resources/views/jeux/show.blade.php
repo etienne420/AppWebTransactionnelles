@@ -14,13 +14,23 @@
          alt="{{ $jeu->titre }}">
 @endif
 
-<p><a href="{{ route('jeux.edit', $jeu) }}">{{ __('interface.edit') }}</a></p>
+@auth
+    @include('jeux._bibliotheque', ['jeu' => $jeu, 'dansBibliotheque' => $dansBibliotheque])
+@endauth
 
+@can('update', $jeu)
+<p><a href="{{ route('jeux.edit', $jeu) }}">{{ __('interface.edit') }}</a></p>
+@endcan
+
+
+
+@can('delete', $jeu)
 <form method="post" action="{{ route('jeux.destroy', $jeu) }}">
     @csrf
     @method('DELETE')
     <button type="submit">{{ __('interface.delete') }}</button>
 </form>
+@endcan
 
 <a href="{{ route('jeux.index') }}">{{ __('interface.back_to_list') }}</a>
 @endsection
