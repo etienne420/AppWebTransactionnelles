@@ -41,4 +41,11 @@ return [
     'added_to_library' => 'Game added to your library.',
     'removed_from_library' => 'Game removed from your library.',
     'logout' => 'Log out',
+    'login' => 'Log in',
+    'register' => 'Register',
+    'administration' => 'Administration',
+    'accounts' => 'Accounts',
+    'name' => 'Name',
+    'email' => 'Email',
+    'role' => 'Role',
 ];

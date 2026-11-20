@@ -41,4 +41,11 @@ return [
     'added_to_library' => 'Jeu ajouté à votre bibliothèque.',
     'removed_from_library' => 'Jeu retiré de votre bibliothèque.',
     'logout' => 'Se déconnecter',
+    'login' => 'Connexion',
+    'register' => 'Inscription',
+    'administration' => 'Administration',
+    'accounts' => 'Comptes',
+    'name' => 'Nom',
+    'email' => 'Courriel',
+    'role' => 'Rôle',
 ];

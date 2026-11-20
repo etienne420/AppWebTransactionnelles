@@ -54,6 +54,7 @@ class JeuController extends Controller
                 ...$data,
                 'image_path' => $path,
                 'published_at' => now(),
+                'user_id' => $request->user()->id,
             ]);
         } catch (Throwable $exception) {
             if ($path) {
@@ -92,6 +93,7 @@ class JeuController extends Controller
      */
     public function update(EnregistrerJeuRequest $request, Jeu $jeu): RedirectResponse
     {
+        Gate::authorize('update', $jeu);
 
         $data = $request->safe()->except('image');
         $newPath = $request->file('image')?->store('jeux', 'public');
@@ -113,6 +115,8 @@ class JeuController extends Controller
             Storage::disk('public')->delete($oldPath);
         }
 
+        return redirect()->route('jeux.show', $jeu)
+            ->with('status', 'Jeu modifié.');
     }
 
     /**
@@ -120,8 +124,7 @@ class JeuController extends Controller
      */
     public function destroy(Jeu $jeu): RedirectResponse
     {
-
-    Gate::authorize('delete', $jeu);
+        Gate::authorize('delete', $jeu);
         $jeu->delete();
 
         return redirect()->route('jeux.index')

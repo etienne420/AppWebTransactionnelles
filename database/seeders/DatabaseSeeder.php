@@ -17,9 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Le rôle n'est pas dans $fillable : on l'attribue avec forceFill()
+        User::firstOrCreate(
+            ['email' => 'membre@example.com'],
+            ['name' => 'Membre Test', 'password' => 'password']
+        )->forceFill(['role' => User::ROLE_MEMBER])->save();
+
+        User::firstOrCreate(
+            ['email' => 'responsable@example.com'],
+            ['name' => 'Responsable Test', 'password' => 'password']
+        )->forceFill(['role' => User::ROLE_MANAGER])->save();
     }
 }

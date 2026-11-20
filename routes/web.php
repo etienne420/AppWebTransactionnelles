@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\CompteController;
 use App\Http\Controllers\BibliothequeController;
 use App\Http\Middleware\EnsureManager;
+use App\Http\Controllers\AdministrationController;
 
 Route::get('/', [JeuController::class, 'index'])->name('home');
 
@@ -20,7 +21,8 @@ Route::get('/recherche/jeux', RechercheJeuController::class)
     ->name('recherche.jeux');
 
 Route::resource('jeux', JeuController::class)
-    ->parameters(['jeux' => 'jeu']);
+    ->parameters(['jeux' => 'jeu'])
+    ->middlewareFor(['create', 'store', 'edit', 'update', 'destroy'], 'auth');
 
 Route::middleware('auth')->group(function () {
     Route::post('/jeux/{jeu}/bibliotheque', [BibliothequeController::class, 'store'])
@@ -52,6 +54,6 @@ Route::post('/deconnexion', [AuthController::class, 'logout'])
     ->middleware('auth')->name('logout');
 
 Route::middleware(['auth', EnsureManager::class])->group(function () {
-    Route::get('/administration', fn() => 'Administration')
+    Route::get('/administration', [AdministrationController::class, 'index'])
         ->name('admin.index');
 });

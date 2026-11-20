@@ -23,13 +23,16 @@
 
     @auth
     <a href="{{ route('account.show') }}">{{ __('interface.my_account') }}</a>
+    @if (auth()->user()?->role === \App\Models\User::ROLE_MANAGER)
+        <a href="{{ route('admin.index') }}">{{ __('interface.administration') }}</a>
+    @endif
     <form method="post" action="{{ route('logout') }}">
         @csrf
         <button type="submit">{{ __('interface.logout') }}</button>
     </form>
 @else
-    <a href="{{ route('login') }}">Connexion</a>
-    <a href="{{ route('register') }}">Inscription</a>
+    <a href="{{ route('login') }}">{{ __('interface.login') }}</a>
+    <a href="{{ route('register') }}">{{ __('interface.register') }}</a>
 @endauth
 
     <main>
