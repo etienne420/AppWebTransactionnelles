@@ -33,10 +33,12 @@ public function index()
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Jeu $jeu): JeuResource
     {
-        //
-    }
+        $jeu->load('user:id,name');
+
+        return new JeuResource($jeu);
+    }   
 
     /**
      * Update the specified resource in storage.

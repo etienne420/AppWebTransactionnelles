@@ -5,4 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('jeux', JeuController::class)
     ->names('api.jeux')
-    ->only(['index', 'show']);
+    ->only(['index', 'show'])
+    ->parameters(['jeux' => 'jeu']);
