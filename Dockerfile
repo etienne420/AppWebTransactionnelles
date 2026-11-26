@@ -8,5 +8,12 @@ RUN apt-get update \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY docker/apache-vhost.conf /etc/apache2/sites-available/000-default.conf
 WORKDIR /var/www/html
+
+# Le code et les dépendances dans l'image (utilisés par le CI).
+# En développement, le volume de compose.yaml remplace ce dossier.
+COPY . .
+RUN composer install --no-interaction --prefer-dist --no-progress \
+    && chown -R www-data:www-data storage bootstrap/cache
+
 EXPOSE 80
 CMD ["apache2-foreground"]
