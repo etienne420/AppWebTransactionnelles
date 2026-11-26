@@ -22,3 +22,9 @@ Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
         ->names('api.jeux')
         ->only(['store', 'update', 'destroy']);
 });
+
+Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
+    Route::apiResource('jeux', JeuController::class)
+        ->names('api.jeux')
+        ->only(['store', 'update', 'destroy']);
+});
