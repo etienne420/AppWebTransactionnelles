@@ -57,3 +57,24 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## exemple de prompt pour les tests
+
+**agent: Claude Opus 5.5**
+
+**critère visé :** à l'inscription, le compte reçoit le rôle ordinaire member, le rôle ne peut pas être choisi dans le formulaire, et un reCAPTCHA absent ou refusé ne crée aucun compte.
+
+**exemple d'un des commits :** tests unitaires de JeuPolicy :proprietaire, autre compte et responsable
+
+**Prompt utilisé :**
+voici mon projet Laravel et la théorie du chapitre 10. Écris les tests unitaires fonctionnels de l'inscription dans `tests/Feature/InscriptionTest.php` en suivant la structure Préparer / Agir / Vérifier. siimule la reponse de Google reCAPTCHA avec `Http::fake()` pour ne jamais contacter internet. vérifie le cas qui réussit et les refus : captcha refusé, captcha absent, confirmations différentes, et une tentative d'envoyer `role=manager` dans le formulaire. Pour chaque refus, vérifie aussi qu'aucun compte n'a été créé.
+
+**verifications effectuées :**
+- j'ai relu chaque assertion avant de lancer les tests.
+- j'ai exécuté `php artisan test tests/Feature/InscriptionTest.php` : 2 tests ont échoué.
+La base enregistrait le role `joueur` au lieu de `member`. L'ancienne migration `create_users_table` définissait déjà la colonne `role` avec `joueur` par défaut, donc la migration du chapitre 9 ne faisait rien.
+- j'ai corrigé la cause avec une nouvelle migration qui change la valeur par défaut et convertit les comptes existants
+- j'ai relancé la suite complète ( les 49 tests) en local et dans GitHub Actions : tt est vert.
+
+
+
