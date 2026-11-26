@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Resources\JeuResource;
 use App\Models\Jeu;
 use App\Http\Requests\EnregistrerJeuApiRequest;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class JeuController extends Controller
 {
@@ -32,11 +35,11 @@ public function store(EnregistrerJeuApiRequest $request)
     $path = $request->file('image')?->store('jeux', 'public');
 
     try {
-        $jeu = $request->user()->jeux()->create([
-            ...$data,
-            'image_path' => $path,
-            'published_at' => now(),
-        ]);
+    $jeu = $request->user()->jeux()->create([
+    ...$data,
+    'image_path' => $path,
+    'user_id' => $request->user()->id,
+]   );
     } catch (Throwable $exception) {
         if ($path) {
             Storage::disk('public')->delete($path);
@@ -70,8 +73,11 @@ public function store(EnregistrerJeuApiRequest $request)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Jeu $jeu)
     {
-        //
+        Gate::authorize('delete', $jeu);
+        $jeu->delete();
+
+        return response()->noContent();
     }
 }
