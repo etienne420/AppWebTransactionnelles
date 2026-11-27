@@ -65,10 +65,30 @@ public function store(EnregistrerJeuApiRequest $request)
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EnregistrerJeuApiRequest $request, Jeu $jeu)
     {
-        //
-    }
+        Gate::authorize('update', $jeu);
+
+        $data = $request->safe()->except('image');
+        $path = $request->file('image')?->store('jeux', 'public');
+
+        try {
+            $jeu->update([
+                ...$data,
+                'image_path' => $path ?? $jeu->image_path,
+            ]);
+        } catch (Throwable $exception) {
+            if ($path) {
+                Storage::disk('public')->delete($path);
+            }
+
+            throw $exception;
+        }
+
+        return (new JeuResource($jeu->load('user:id,name')))
+            ->response()
+            ->setStatusCode(200);
+    }   
 
     /**
      * Remove the specified resource from storage.
